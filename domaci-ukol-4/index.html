@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="script.js"></script>
+    <meta charset="UTF-8">
+    <title>Generátor zaměstnanců</title>
+</head>
+<body>
+<div style="text-align: center">
+    <h2>Program vygeneruje zaměstnance</h2>
+    <h6>Zadejte počet zaměstnanců, minimální a maximální věk</h6>
+</div>
+
+
+<div style="display: flex; flex-direction: row; justify-content: space-around; border: 2px solid black">
+
+    <div style="margin: 10px">
+        <label>
+            <input placeholder="Počet zaměstnanců" id="numberOfEmp">
+        </label>
+
+        <label>
+            <input placeholder="Minimální věk" id="minAge">
+        </label>
+
+        <label>
+            <input placeholder="Maximální věk" id="maxAge">
+        </label>
+
+        <button style="width: 150px" onclick="Main(inputData())">Vygenerovat zaměstnance</button>
+    </div>
+
+
+</div>
+
+
+</body>
+</html>
