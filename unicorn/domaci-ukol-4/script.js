@@ -39,6 +39,8 @@ function Main(dtoIn) {
         workload: 0
     };
 
+    let medianWorkloadArray = []
+
     const workloadOptions = [10, 20, 30, 40];
 
     let year = new Date().getFullYear();
@@ -68,16 +70,19 @@ function Main(dtoIn) {
         const age = year - dateBirt.getFullYear()
         ageArr.push(age)
         dtoOut.averageAge = ageArr.reduce((a, b) => a + b, 0) / ageArr.length;
-        dtoOut.minAge = ageArr.reduce((a, b) => a + b, 0) / ageArr.length;
-        dtoOut.maxAge = ageArr.reduce((a, b) => a + b, 0) / ageArr.length;
-        dtoOut.medianAge = ageArr.reduce((a, b) => a + b, 0) / ageArr.length;
+        dtoOut.minAge = Math.min.apply(null, ageArr)
+        dtoOut.maxAge = Math.max.apply(null, ageArr)
+        dtoOut.medianAge = getMedian(ageArr)
 
-        getWorkload(employee, dtoOut)
+        getWorkload(employee, dtoOut, medianWorkloadArray)
         getAverageWomenWorkload(dtoOut)
+
 
         dtoOut.sortedByWorkload.push(JSON.parse(JSON.stringify(employee)))
     }
 
+
+    dtoOut.medianWorkload = getMedian(medianWorkloadArray)
     sort(dtoOut)
 
     console.log(dtoOut)
@@ -92,29 +97,40 @@ function sort(dtoOut) {
     dtoOut.sortedByWorkload.sort(function (a, b) {  return a.workload - b.workload;});
 }
 
-function getWorkload(employee, dtoOut) {
+function getWorkload(employee, dtoOut, medianWorkloadArray) {
 
         if (employee.workload === 10) {
             dtoOut.workload10++;
+            medianWorkloadArray.push(10)
             if (employee.gender === "female") {
                 averageWomanWorkLoadArray.push(10)
             }
         } else if (employee.workload === 20) {
             dtoOut.workload20++;
+            medianWorkloadArray.push(20)
             if (employee.gender === "female") {
                 averageWomanWorkLoadArray.push(20)
             }
         } else if (employee.workload === 30) {
             dtoOut.workload30++;
+            medianWorkloadArray.push(30)
             if (employee.gender === "female") {
                 averageWomanWorkLoadArray.push(30)
             }
         } else if (employee.workload === 40) {
             dtoOut.workload40++;
+            medianWorkloadArray.push(40)
             if (employee.gender === "female") {
                 averageWomanWorkLoadArray.push(40)
             }
         }
+}
+
+function getMedian(array) {
+
+    array = array.sort();
+    return array[Math.round(array.length / 2) - 1];
+
 }
 
 function getAverageWomenWorkload(dtoOut) {
@@ -125,5 +141,3 @@ function getAverageWomenWorkload(dtoOut) {
     }
     dtoOut.averageWomenWorkload = sum / averageWomanWorkLoadArray.length
 }
-
-//function age(dtoOut, employee) {}
